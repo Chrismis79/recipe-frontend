@@ -20,7 +20,7 @@ function Register(props){
         axiosWithAuth()
                 .post('auth/register', {...input})
                 .then(res => {
-                    console.log("res on register", res)
+                    
                     localStorage.setItem('token', res.data.token);
                     
                 })

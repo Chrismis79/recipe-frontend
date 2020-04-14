@@ -1,10 +1,16 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
+
 
 import {axiosWithAuth} from '../utils/axiosWithAuth';
 
 
 const Login = (props) => {
-    console.log("login props", props);
+
+
+   if(localStorage.getItem('token')){
+       props.history.push('/home');
+   }
+   
     const [credentials, setCredentials] = useState({
         username: '',
         password: ''    
@@ -21,7 +27,7 @@ const Login = (props) => {
         axiosWithAuth()
             .post('auth/login', credentials)
             .then(res=> {
-                localStorage.setItem('token', res.data.payload);
+                localStorage.setItem('token', res.data.token);
                 props.history.push('/home');
             })
             .catch(err => {
